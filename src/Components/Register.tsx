@@ -1,14 +1,24 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet,Image, SafeAreaView } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import axios from '../Api/axios';
 
-const RegisterScreen = () => {
+const RegisterScreen = ({navigation}:any) => {
      const [user,setUser]=useState("");
      const [pwd,setPwd]=useState("");
      const [email,setEmail]=useState("");
-     const handleLogin=()=>{
-     console.log({user,pwd});
-      }
+
+
+     const handleRegister=async()=>{
+     console.log({user,pwd,email});
+     const response=await axios.post('/register',{user,pwd,email},{
+      headers:{
+        "Content-Type":"application/json"
+      },
+     });
+     console.log(response.data);
+     navigation.navigate("LoginScreen");
+    }
   return (
     <LinearGradient colors={['#1100ff', '#0040ff']} style={styles.container}>
        <Image
@@ -16,7 +26,7 @@ const RegisterScreen = () => {
         source={require('../Public/Images/shamiri_institute_logo.jpg')}
       />
       <View style={styles.innerContainer}>
-        <Text style={styles.title}>Login</Text>
+        <Text style={styles.title}>Register</Text>
         <TextInput 
         style={styles.input} 
         placeholder="Username" 
@@ -39,9 +49,10 @@ const RegisterScreen = () => {
          value={pwd}
          onChangeText={(text)=>{setPwd(text)}}
          />
-         <Text>{pwd}</Text>
-         <Text>{user}</Text>
-        <Button title="Login" onPress={() => {handleLogin}} color="#1E90FF" />
+         
+        <Button title="Register" 
+        onPress={handleRegister} 
+        color="#1E90FF" />
       </View>
     </LinearGradient>
   );
@@ -60,8 +71,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   tinyLogo: {
-    width: 50,
-    height: 50,
+    width: 100,
+    height: 100,
+    marginBottom:10
   },
   title: {
     fontSize: 32,

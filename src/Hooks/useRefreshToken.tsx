@@ -1,13 +1,18 @@
-import axios from '../api/axios';
+import { axiosPrivate } from '../Api/axios';
 import { useAuth } from './useAuth';
 
 
 const useRefreshToken = () => {
-    const { setAuth } = useAuth();
+    const { auth,setAuth } = useAuth();
 
     const refresh = async () => {
-        const response = await axios.get('/refresh', {
-            withCredentials: true
+        console.log("loading")
+        const response = await axiosPrivate.get('/refresh', {
+            headers: {
+                "Content-Type":"application/json",
+                Authorization: `Bearer ${auth?.accessToken}`
+              },
+            withCredentials: true,
         });
         setAuth((prev:any)=> {
             console.log(JSON.stringify(prev));
@@ -18,6 +23,7 @@ const useRefreshToken = () => {
                 accessToken: response.data.accessToken
             }
         });
+
         return response.data.accessToken;
     }
     return refresh;

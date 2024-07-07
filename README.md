@@ -1,3 +1,26 @@
+### Linking to the backend to work with android studios Emulator
+
+Get the current ipv4 WLAN ip address of the machine running the server
+on windows you can use :
+
+
+```bash
+   ipconfig
+```
+
+once you have the ip address of the local machine, you have to change the baseUrl to point to the local machine in the file src/Api/axios.tsx to where your localserver is running: 
+
+```bash
+#replace the ip address with your local ip address
+const BASE_URL = 'http://<192.168.100.25>:4000';
+
+eg:
+const BASE_URL = 'http://192.168.100.25:4000'
+```
+
+### Now you can run the android app using the steps below
+
+
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
@@ -77,3 +100,10 @@ To learn more about React Native, take a look at the following resources:
 - [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+
+
+
+
+
+
+
